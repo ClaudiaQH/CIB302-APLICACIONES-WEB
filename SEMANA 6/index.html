@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportyStyle | Tienda Deportiva</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-flex">
+        <h1 class="logo">Sporty<span>Style</span></h1>
+
+        <nav class="nav">
+            <button type="button" class="tab-btn active" onclick="openTab(event,'productos-tab')">Productos</button>
+
+            <!-- Mejorado -->
+            <button type="button" class="tab-btn" id="btn-carrito" onclick="openTab(event,'carrito-tab')">
+                Carrito
+            </button>
+
+            <button type="button" class="tab-btn" id="nav-cuenta-btn" onclick="openTab(event,'sesion-tab')">
+                Cuenta
+            </button>
+        </nav>
+    </div>
+</header>
+
+<main class="main container">
+
+    <!-- Nombre usuario -->
+    <div class="section-header">
+        <h2><span id="user-name-header" class="user-header"></span></h2>
+    </div>
+
+    <!-- PRODUCTOS -->
+    <section id="productos-tab" class="tab-content active">
+        <div class="hero">
+            <h2>Eleva tu rendimiento</h2>
+            <p>Ropa deportiva para entrenar con estilo y comodidad.</p>
+        </div>
+
+        <div class="section-header">
+            <h3>Catálogo de productos</h3>
+        </div>
+
+        <div id="lista-productos" class="product-grid"></div>
+    </section>
+
+    <!-- CARRITO -->
+    <section id="carrito-tab" class="tab-content">
+        <div class="checkout">
+
+            <div class="card">
+                <div class="card-header"><h2>Carrito</h2></div>
+
+                <div id="detalle-carrito">
+                    <p class="empty-msg">Tu carrito está vacío</p>
+                </div>
+
+                <div class="card-footer">
+                    <span>Total:</span>
+                    <strong>$<span id="total-precio">0</span></strong>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h2>Datos de envío</h2></div>
+
+                <form id="form-pago">
+                    <div class="form-group">
+                        <label>Nombre completo</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Correo</label>
+                        <input type="email" id="correo" name="correo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <textarea id="direccion" name="direccion" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary full">
+                        Finalizar compra
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SESIÓN -->
+    <section id="sesion-tab" class="tab-content">
+        <div class="card auth-card">
+
+            <div class="status-bar">
+                <div id="status-dot" class="status-dot loading"></div>
+                <span id="status-text">Conectando con Auth0...</span>
+            </div>
+
+            <div id="logged-out-view">
+                <h2>Bienvenido</h2>
+                <p>Inicia sesión para comprar.</p>
+
+                <button id="btn-login" class="btn-primary btn-large">
+                    Iniciar sesión
+                </button>
+
+                <p class="loader" id="auth-loading">Verificando sesión...</p>
+            </div>
+
+            <div id="logged-in-view" style="display:none;">
+                <h2 id="user-greet">Hola</h2>
+                <p>Sesión iniciada correctamente</p>
+
+                <button id="btn-logout" class="btn-danger">
+                    Cerrar sesión
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- MODAL CONFIRMACIÓN -->
+<div id="mensaje-confirmacion" class="modal hidden">
+    <div class="modal-content">
+        <div class="success-icon">✓</div>
+        <h2>Compra realizada</h2>
+        <div id="detalle-pedido-final"></div>
+
+        <button onclick="iniciarNuevaCompra()" class="btn-primary">
+            Nueva compra
+        </button>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast hidden"></div>
+
+<footer class="footer">
+    <p>&copy; 2026 SportyStyle</p>
+</footer>
+
+<!-- SCRIPT TABS -->
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+</script>
+</body>
+<script src="./app.js"></script>
+</html>
